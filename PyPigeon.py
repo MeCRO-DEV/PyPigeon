@@ -445,7 +445,8 @@ class MainWindow(QMainWindow):
         btPaste.clicked.connect(self.btPasteClicked)
         self.btEncrypt.clicked.connect(self.btEncryptClicked)
         self.btDecrypt.clicked.connect(self.btDecryptClicked)
-        btEye.clicked.connect(self.btEyeClicked)
+        btEye.pressed.connect(self.show_password)
+        btEye.released.connect(self.hide_password)
         btInfo.clicked.connect(self.btInfoClicked)
         self.tbMessageBox.textChanged.connect(self.textChanged)
 
@@ -504,8 +505,7 @@ class MainWindow(QMainWindow):
     def setDecryptedText(self, decrypted_text):
         if decrypted_text == "Invalid Pass Phrase":
             CustomMessageBox.about(self, "Error", "Invalid Pass Phrase")
-            return
-        if decrypted_text == "Invalid Base64 String":
+        elif decrypted_text == "Invalid Base64 String":
             CustomMessageBox.about(self, "Error", "Invalid Base64 String")
         else:
             self.tbMessageBox.setText(decrypted_text)
@@ -534,11 +534,11 @@ class MainWindow(QMainWindow):
         self.btDecrypt.setEnabled(False)
         self.decrypt_thread.start()
 
-    def btEyeClicked(self):
-        if self.tbPhase.echoMode() == QLineEdit.EchoMode.Password:
-            self.tbPhase.setEchoMode(QLineEdit.EchoMode.Normal)
-        else:
-            self.tbPhase.setEchoMode(QLineEdit.EchoMode.Password)
+    def show_password(self):
+        self.tbPhase.setEchoMode(QLineEdit.EchoMode.Normal)
+
+    def hide_password(self):
+        self.tbPhase.setEchoMode(QLineEdit.EchoMode.Password)
 
     def btInfoClicked(self):
         CustomMessageBox.about(self, "About", "PyPigeon\n\nVersion: 1.0\n\n© MeCRO 2024")
