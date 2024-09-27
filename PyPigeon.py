@@ -4,7 +4,7 @@ from Crypto.Hash import SHA256
 from Crypto.Util.Padding import pad, unpad
 from PyQt6 import QtCore
 from PyQt6.QtCore import QSize, Qt, pyqtSignal, QObject
-from PyQt6.QtGui import QPixmap, QFont, QMouseEvent, QCursor
+from PyQt6.QtGui import QPixmap, QFont, QMouseEvent, QCursor, QKeyEvent
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt6.QtWidgets import QSpacerItem, QTextEdit, QGridLayout, QMessageBox
 from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
@@ -55,8 +55,30 @@ class DecryptWorker(QObject):
             decrypted_text = "Invalid Pass Phrase"
         self.finished.emit(decrypted_text)
 
+class LimitedTextEdit(QTextEdit):
+    def __init__(self, max_chars, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.max_chars = max_chars
+
+    def keyPressEvent(self, event: QKeyEvent):
+        if len(self.toPlainText()) >= self.max_chars and event.key() not in (Qt.Key.Key_Backspace, Qt.Key.Key_Delete):
+            event.ignore()
+            QMessageBox(QMessageBox.Icon.Warning, "Warning", "Maximum characters reached!").exec()
+        else:
+            super().keyPressEvent(event)
+
+    def insertFromMimeData(self, source):
+        current_text = self.toPlainText()
+        new_text = source.text()
+        if len(current_text) + len(new_text) > self.max_chars:
+            allowed_text = new_text[:self.max_chars - len(current_text)]
+            self.insertPlainText(allowed_text)
+            QMessageBox(QMessageBox.Icon.Warning, "Warning", "Maximum characters reached!").exec()
+        else:
+            super().insertFromMimeData(source)
+
 class MainWindow(QMainWindow):
-    OperatingSystem   = platform.system()
+    OperatingSystem = platform.system()
 
     def __init__(self):
         super().__init__()
@@ -372,10 +394,10 @@ class MainWindow(QMainWindow):
         #Phase Bar End
 
         # Message Box
-        self.tbMessageBox = QTextEdit()
+        self.tbMessageBox = LimitedTextEdit(max_chars=1048576)
         self.tbMessageBox.setFixedHeight(285)
         self.tbMessageBox.setFixedWidth(460)
-        self.tbMessageBox.setStyleSheet("background-color: black; color: yellow; border: 1px solid yellow;")
+        self.tbMessageBox.setStyleSheet("background-color: black; color: white; border: 1px solid yellow;")
         self.tbMessageBox.setFont(QFont('Courier New', 12, 300))
         self.tbMessageBox.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.tbMessageBox.setContentsMargins(0, 0, 0, 0)
