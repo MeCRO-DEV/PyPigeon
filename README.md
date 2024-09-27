@@ -17,4 +17,5 @@ Dependencies:
 - PyCryptoDome
 
 Screenshots:
+
 ![image](https://github.com/user-attachments/assets/0a159bdb-b26e-463a-ad13-2b0535900a9b)
