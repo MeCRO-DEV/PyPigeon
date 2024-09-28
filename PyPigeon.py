@@ -595,7 +595,13 @@ class MainWindow(QMainWindow):
 
     def btInfoClicked(self):
         msg = "<p><font color=\"green\" face=\"Courier New\" size=\"20\"><B>PyPigeon</B></font> (Pigeon Python Version)</p><p><font color=\"cyan\" face=\"Courier New\" size=\"4\">© David Wang 2024</font></p><p>The MIT License (MIT)</p><p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the [Software]), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p><p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p><p>THE SOFTWARE IS PROVIDED [AS IS], WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>"
-        self.msgBox("About PyPigeon", msg, QMessageBox.Icon.Information, 720, 450)
+        if self.OperatingSystem == "Windows":
+            width = 720
+            height = 450
+        else:
+            width = 720
+            height = 550
+        self.msgBox("About PyPigeon", msg, QMessageBox.Icon.Information, width, height)
 
     def textChanged(self):
         self.lbLen.setText(str(len(self.tbMessageBox.toPlainText())))
