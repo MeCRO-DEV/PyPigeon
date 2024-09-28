@@ -315,7 +315,10 @@ class MainWindow(QMainWindow):
                                 background-color: #FF4C70;
                             }
                              """)
-        self.btEncrypt.setFont(QFont('Courier New', 8, 700))
+        if self.OperatingSystem == "Darwin":
+            self.btEncrypt.setFont(QFont('Courier New', 12, 700))
+        else:
+            self.btEncrypt.setFont(QFont('Courier New', 8, 700))
         ButtonLayout.addWidget(self.btEncrypt, Qt.AlignmentFlag.AlignVCenter)
 
         self.btDecrypt = QPushButton("Decrypt")
@@ -333,7 +336,10 @@ class MainWindow(QMainWindow):
                                 background-color: #FF4C70;
                             }
                              """)
-        self.btDecrypt.setFont(QFont('Courier New', 8, 700))
+        if self.OperatingSystem == "Darwin":
+            self.btDecrypt.setFont(QFont('Courier New', 12, 700))
+        else:
+            self.btDecrypt.setFont(QFont('Courier New', 8, 700))
         ButtonLayout.addWidget(self.btDecrypt, Qt.AlignmentFlag.AlignVCenter)
 
         btCopy = QPushButton("Copy")
@@ -351,7 +357,10 @@ class MainWindow(QMainWindow):
                                 background-color: #FF4C70;
                             }
                              """)
-        btCopy.setFont(QFont('Courier New', 8, 700))
+        if self.OperatingSystem == "Darwin":
+            btCopy.setFont(QFont('Courier New', 12, 700))
+        else:
+            btCopy.setFont(QFont('Courier New', 8, 700))
         ButtonLayout.addWidget(btCopy, Qt.AlignmentFlag.AlignVCenter)
 
         btPaste = QPushButton("Paste")
@@ -369,7 +378,10 @@ class MainWindow(QMainWindow):
                                 background-color: #FF4C70;
                             }
                              """)
-        btPaste.setFont(QFont('Courier New', 8, 700))
+        if self.OperatingSystem == "Darwin":
+            btPaste.setFont(QFont('Courier New', 12, 700))
+        else:
+            btPaste.setFont(QFont('Courier New', 8, 700))
         ButtonLayout.addWidget(btPaste, Qt.AlignmentFlag.AlignVCenter)
 
         btClear = QPushButton("Clear")
@@ -387,7 +399,10 @@ class MainWindow(QMainWindow):
                                 background-color: lightgreen;
                             }
                              """)
-        btClear.setFont(QFont('Courier New', 8, 700))
+        if self.OperatingSystem == "Darwin":
+            btClear.setFont(QFont('Courier New', 12, 700))
+        else:
+            self.btClear.setFont(QFont('Courier New', 8, 700))
         ButtonLayout.addWidget(btClear, Qt.AlignmentFlag.AlignVCenter)
 
         self.CentralLayout.insertWidget(3,lbButtonBar)
