@@ -402,7 +402,7 @@ class MainWindow(QMainWindow):
         if self.OperatingSystem == "Darwin":
             btClear.setFont(QFont('Courier New', 12, 700))
         else:
-            self.btClear.setFont(QFont('Courier New', 8, 700))
+            btClear.setFont(QFont('Courier New', 8, 700))
         ButtonLayout.addWidget(btClear, Qt.AlignmentFlag.AlignVCenter)
 
         self.CentralLayout.insertWidget(3,lbButtonBar)
