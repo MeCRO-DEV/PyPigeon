@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import QSpacerItem, QTextEdit, QGridLayout, QMessageBox
 from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
 
 class CustomMessageBox(QMessageBox):
+    OS = platform.system()
     def __init__(self, *args, width=400, height=100, **kwargs):
         super(CustomMessageBox, self).__init__(*args, **kwargs)
         self.setStyleSheet("""
@@ -19,12 +20,15 @@ class CustomMessageBox(QMessageBox):
                             QMessageBox QLabel {
                                 color: yellow;
                                 font-size: 14px;
-                                font-family: Consolas;
+                                font-family: Courier New;
                                 font-weight: light;
                             }
                            """)
+        if self.OS == "Darwin" and width == 400 and height == 100:
+            self.height = height + 50
+        else:
+            self.height = height
         self.width = width
-        self.height = height
         self.setMinimumSize(self.width, self.height)
         self.setMaximumSize(self.width, self.height)
 
@@ -112,7 +116,7 @@ class MainWindow(QMainWindow):
         self.initUI()
 
     def mousePressEvent(self, event: QMouseEvent):
-        if self.OperatingSystem == "Windows":
+        if self.OperatingSystem == "Windows" or "Darwin":
             if event.button() == QtCore.Qt.MouseButton.LeftButton:
                 self.offset = event.pos()
             else:
@@ -121,7 +125,7 @@ class MainWindow(QMainWindow):
             return
 
     def mouseMoveEvent(self, event: QMouseEvent):
-        if self.OperatingSystem == "Windows":
+        if self.OperatingSystem == "Windows" or "Darwin":
             try:
                 if self.offset is not None and event.buttons() == QtCore.Qt.MouseButton.LeftButton:
                     self.move(self.pos() + event.pos() - self.offset)
@@ -139,7 +143,7 @@ class MainWindow(QMainWindow):
     def initUI(self):
         self.setWindowTitle("PyPigeon")
         self.setFixedSize(QSize(500, 500))
-        if self.OperatingSystem == "Windows":
+        if self.OperatingSystem == "Windows" or "Darwin":
             self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint, True)
         self.setStyleSheet("QMainWindow { background-color: #181735; }")
         self.setContentsMargins(0, 0, 0, 0)
@@ -411,7 +415,11 @@ class MainWindow(QMainWindow):
                                             border-radius:10;
                                         }
                                      """)
-        self.tbPhrase.setFont(QFont('Time New Roman', 12, 200))
+        if self.OperatingSystem == "Darwin":
+            font = QFont("Courier New", pointSize=12, weight=200, italic=False)
+        else:
+            font = QFont("Time New Roman", pointSize=12, weight=200, italic=False)
+        self.tbPhrase.setFont(font)
         self.tbPhrase.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
         self.tbPhrase.setEchoMode(QLineEdit.EchoMode.Password)
         PhraseLayout.addWidget(self.tbPhrase)
@@ -456,7 +464,10 @@ class MainWindow(QMainWindow):
         lbStatusBar.setContentsMargins(0, 0, 0, 0)
         lbStatusBar.setFixedSize(480, 25)
         StatusLayout = QHBoxLayout(lbStatusBar)
-        StatusLayout.setContentsMargins(10, 0, 10, 0)
+        if self.OperatingSystem == "Darwin":
+            StatusLayout.setContentsMargins(10, 10, 10, 0)
+        else:
+            StatusLayout.setContentsMargins(10, 0, 10, 0)
         lbStatusBar.setLayout(StatusLayout)
 
         self.lbLen = QLabel("0")
@@ -519,10 +530,10 @@ class MainWindow(QMainWindow):
 
     def btEncryptClicked(self):
         if self.tbPhrase.text() == "":
-            self.msgBox("Error", "⚡Passphrase Empty⚡", QMessageBox.Icon.Warning)
+            self.msgBox("Error", "⚡ Passphrase Empty ⚡", QMessageBox.Icon.Warning)
             return
         if self.tbMessageBox.toPlainText() == "":
-            self.msgBox("Error", "⚡Nothing to Encrypt⚡", QMessageBox.Icon.Warning)
+            self.msgBox("Error", "⚡ Nothing to Encrypt ⚡", QMessageBox.Icon.Warning)
             return
         pText = self.tbMessageBox.toPlainText()
         mima  = self.tbPhrase.text()
@@ -550,9 +561,9 @@ class MainWindow(QMainWindow):
     
     def setDecryptedText(self, decrypted_text):
         if decrypted_text == "Invalid Pass Phrase":
-            self.msgBox("Error", "⚡Invalid Passphrase⚡", QMessageBox.Icon.Critical)
+            self.msgBox("Error", "⚡ Invalid Passphrase ⚡", QMessageBox.Icon.Critical)
         elif decrypted_text == "Invalid Base64 String":
-            self.msgBox("Error", "⚡Invalid Base64 String⚡", QMessageBox.Icon.Critical)
+            self.msgBox("Error", "⚡ Invalid Base64 String ⚡", QMessageBox.Icon.Critical)
         else:
             self.tbMessageBox.setText(decrypted_text)
         self.decrypt_thread.quit()
@@ -561,13 +572,13 @@ class MainWindow(QMainWindow):
 
     def btDecryptClicked(self):
         if self.tbPhrase.text() == "":
-            self.msgBox("Error", "⚡Passphrase Empty⚡", QMessageBox.Icon.Warning)
+            self.msgBox("Error", "⚡ Passphrase Empty ⚡", QMessageBox.Icon.Warning)
             return
         if self.tbMessageBox.toPlainText() == "":
-            self.msgBox("Error", "⚡Nothing to Decrypt⚡", QMessageBox.Icon.Warning)
+            self.msgBox("Error", "⚡ Nothing to Decrypt ⚡", QMessageBox.Icon.Warning)
             return
         if not self.is_base64(self.tbMessageBox.toPlainText()):
-            self.msgBox("Error", "⚡Invalid Base64 String⚡", QMessageBox.Icon.Critical)
+            self.msgBox("Error", "⚡ Invalid Base64 String ⚡", QMessageBox.Icon.Critical)
             return
         b64 = self.tbMessageBox.toPlainText()
         mima  = self.tbPhrase.text()
@@ -594,7 +605,7 @@ class MainWindow(QMainWindow):
         msg_box.exec()
 
     def btInfoClicked(self):
-        msg = "<p><font color=\"green\" face=\"Courier New\" size=\"20\"><B>PyPigeon</B></font> (Pigeon Python Version)</p><p><font color=\"cyan\" face=\"Courier New\" size=\"4\">© David Wang 2024</font></p><p>The MIT License (MIT)</p><p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the [Software]), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p><p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p><p>THE SOFTWARE IS PROVIDED [AS IS], WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>"
+        msg = "<p><font color=\"green\" face=\"Courier New\" size=\"20\"><B>PyPigeon</B></font> (Pigeon Python Version)</p><p><font color=\"cyan\" face=\"Courier New\" size=\"4\">© MeCRO 2024</font></p><p>The MIT License (MIT)</p><p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the [Software]), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p><p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p><p>THE SOFTWARE IS PROVIDED [AS IS], WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>"
         if self.OperatingSystem == "Windows":
             width = 720
             height = 450
