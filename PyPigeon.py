@@ -10,7 +10,7 @@ from PyQt6.QtWidgets import QSpacerItem, QTextEdit, QGridLayout, QMessageBox
 from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
 
 class CustomMessageBox(QMessageBox):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, width=400, height=100, **kwargs):
         super(CustomMessageBox, self).__init__(*args, **kwargs)
         self.setStyleSheet("""
                             QMessageBox {
@@ -23,12 +23,14 @@ class CustomMessageBox(QMessageBox):
                                 font-weight: light;
                             }
                            """)
-        self.setMinimumSize(400, 100)
-        self.setMaximumSize(400, 100)
+        self.width = width
+        self.height = height
+        self.setMinimumSize(self.width, self.height)
+        self.setMaximumSize(self.width, self.height)
 
     def resizeEvent(self, event):
         super(CustomMessageBox, self).resizeEvent(event)
-        self.setFixedSize(400, 100)
+        self.setFixedSize(self.width, self.height)
 
 class EncryptWorker(QObject):
     finished = pyqtSignal(str)
@@ -584,15 +586,16 @@ class MainWindow(QMainWindow):
     def hide_password(self):
         self.tbPhrase.setEchoMode(QLineEdit.EchoMode.Password)
 
-    def msgBox(self, title, message, icon):
-        msg_box = CustomMessageBox()
+    def msgBox(self, title, message, icon, width=400, height=100):
+        msg_box = CustomMessageBox(width=width, height=height)
         msg_box.setText(message)
         msg_box.setWindowTitle(title)
         msg_box.setIcon(icon)
         msg_box.exec()
 
     def btInfoClicked(self):
-        self.msgBox("About", "PyPigeon  (V1.0)\n© MeCRO 2024", QMessageBox.Icon.Information)
+        msg = "<p><font color=\"green\" face=\"Courier New\" size=\"20\"><B>PyPigeon</B></font> (Pigeon Python Version)</p><p><font color=\"cyan\" face=\"Courier New\" size=\"4\">© David Wang 2024</font></p><p>The MIT License (MIT)</p><p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the [Software]), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p><p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p><p>THE SOFTWARE IS PROVIDED [AS IS], WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>"
+        self.msgBox("About PyPigeon", msg, QMessageBox.Icon.Information, 720, 450)
 
     def textChanged(self):
         self.lbLen.setText(str(len(self.tbMessageBox.toPlainText())))
