@@ -143,7 +143,6 @@ class MainWindow(QMainWindow):
     def initUI(self):
         self.setWindowTitle("PyPigeon")
         self.setFixedSize(QSize(500, 500))
-        print(self.OperatingSystem)
         if self.OperatingSystem == "Windows" or self.OperatingSystem == "Darwin":
             self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint, True)
         self.setStyleSheet("QMainWindow { background-color: #181735; }")
