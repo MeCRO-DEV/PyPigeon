@@ -116,7 +116,7 @@ class MainWindow(QMainWindow):
         self.initUI()
 
     def mousePressEvent(self, event: QMouseEvent):
-        if self.OperatingSystem == "Windows" or "Darwin":
+        if self.OperatingSystem == "Windows" or self.OperatingSystem == "Darwin":
             if event.button() == QtCore.Qt.MouseButton.LeftButton:
                 self.offset = event.pos()
             else:
@@ -125,7 +125,7 @@ class MainWindow(QMainWindow):
             return
 
     def mouseMoveEvent(self, event: QMouseEvent):
-        if self.OperatingSystem == "Windows" or "Darwin":
+        if self.OperatingSystem == "Windows" or self.OperatingSystem == "Darwin":
             try:
                 if self.offset is not None and event.buttons() == QtCore.Qt.MouseButton.LeftButton:
                     self.move(self.pos() + event.pos() - self.offset)
@@ -143,7 +143,8 @@ class MainWindow(QMainWindow):
     def initUI(self):
         self.setWindowTitle("PyPigeon")
         self.setFixedSize(QSize(500, 500))
-        if self.OperatingSystem == "Windows" or "Darwin":
+        print(self.OperatingSystem)
+        if self.OperatingSystem == "Windows" or self.OperatingSystem == "Darwin":
             self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint, True)
         self.setStyleSheet("QMainWindow { background-color: #181735; }")
         self.setContentsMargins(0, 0, 0, 0)
