@@ -227,44 +227,52 @@ class MainWindow(QMainWindow):
 
         # Info Bar
 
+        if self.OperatingSystem == "Darwin":
+            mvt = 10
+            mvb = 5
+            fsize = 12
+        else:
+            mvt = 5
+            mvb = 5
+            fsize = 10
         lbInfoBar = QLabel()
         lbInfoBar.setContentsMargins(0, 0, 0, 0)
         lbInfoBar.setFixedSize(480, 45)
         lbInfoBar.setStyleSheet("QLabel { background-color:#000000; }")
 
         InfoLayout = QGridLayout(lbInfoBar)
-        InfoLayout.setContentsMargins(10, 5, 10, 5)
+        InfoLayout.setContentsMargins(10, mvt, 10, mvb)
         InfoLayout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
         lbInfoBar.setLayout(InfoLayout)
 
         lbAlgorithm = QLabel("Algorithm:  AES")
         lbAlgorithm.setStyleSheet("QLabel { color: Bisque; }")
-        lbAlgorithm.setFont(QFont('Courier New', 10, 400))
+        lbAlgorithm.setFont(QFont('Courier New', fsize, 400))
         InfoLayout.addWidget(lbAlgorithm, 0, 1)
 
         lbBlockSize = QLabel("Block Size:  128")
         lbBlockSize.setStyleSheet("QLabel { color: BurlyWood; }")
-        lbBlockSize.setFont(QFont('Courier New', 10, 400))
+        lbBlockSize.setFont(QFont('Courier New', fsize, 400))
         InfoLayout.addWidget(lbBlockSize, 0, 2)
 
         lbEncodings = QLabel("Encodings: Base64")
         lbEncodings.setStyleSheet("QLabel { color: Honeydew; }")
-        lbEncodings.setFont(QFont('Courier New', 10, 400))
+        lbEncodings.setFont(QFont('Courier New', fsize, 400))
         InfoLayout.addWidget(lbEncodings, 0, 3)
 
         lbKeyLength = QLabel("Key Length: 256")
         lbKeyLength.setStyleSheet("QLabel { color: Bisque; }")
-        lbKeyLength.setFont(QFont('Courier New', 10, 400))
+        lbKeyLength.setFont(QFont('Courier New', fsize, 400))
         InfoLayout.addWidget(lbKeyLength, 1, 1)
 
         lbCypherMode = QLabel("Cypher Mode: CBC")
         lbCypherMode.setStyleSheet("QLabel { color: BurlyWood; }")
-        lbCypherMode.setFont(QFont('Courier New', 10, 400))
+        lbCypherMode.setFont(QFont('Courier New', fsize, 400))
         InfoLayout.addWidget(lbCypherMode, 1, 2)
 
         lbCharLimit = QLabel("CharLimit: 1024KB")
         lbCharLimit.setStyleSheet("QLabel { color: Honeydew; }")
-        lbCharLimit.setFont(QFont('Courier New', 10, 400))
+        lbCharLimit.setFont(QFont('Courier New', fsize, 400))
         InfoLayout.addWidget(lbCharLimit, 1, 3)
 
         self.CentralLayout.insertWidget(1,lbInfoBar)
@@ -296,6 +304,8 @@ class MainWindow(QMainWindow):
         lbPassPhrase = QLabel("Passphrase:")
         lbPassPhrase.setStyleSheet("QLabel { color: cyan; border: 2px solid cyan; border-radius:10;  background-color: black; }")
         lbPassPhrase.setFixedHeight(25)
+        if self.OperatingSystem == "Darwin":
+            lbPassPhrase.setFixedWidth(90)
         lbPassPhrase.setFont(QFont('Courier New', 12, 400))
         lbPassPhrase.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         ButtonLayout.addWidget(lbPassPhrase, Qt.AlignmentFlag.AlignBottom)
