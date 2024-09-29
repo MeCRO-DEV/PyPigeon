@@ -231,8 +231,8 @@ class MainWindow(QMainWindow):
         # Info Bar
 
         if self.OperatingSystem == "Darwin":
-            mvt = 10
-            mvb = 0
+            mvt = 6
+            mvb = 6
             fsize = 12
         else:
             mvt = 5
