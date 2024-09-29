@@ -229,7 +229,7 @@ class MainWindow(QMainWindow):
 
         if self.OperatingSystem == "Darwin":
             mvt = 10
-            mvb = 5
+            mvb = 0
             fsize = 12
         else:
             mvt = 5
