@@ -519,7 +519,7 @@ class MainWindow(QMainWindow):
         self.CentralLayout.insertWidget(6,lbStatusBar)
         self.CentralLayout.setAlignment(lbStatusBar, Qt.AlignmentFlag.AlignCenter)
 
-        self.tbMessageBox.setText("PyPigeon, securing your messages.")
+        # Status Bar End
 
     def initUI(self):
         self.setupGui()
@@ -535,6 +535,8 @@ class MainWindow(QMainWindow):
         self.btEye.pressed.connect(self.show_password)
         self.btEye.released.connect(self.hide_password)
         self.tbMessageBox.textChanged.connect(self.textChanged)
+
+        self.tbMessageBox.setText("PyPigeon, securing your messages.")
 
     def btExitClicked(self):
         exit()
