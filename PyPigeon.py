@@ -4,7 +4,7 @@ from Crypto.Hash import SHA256
 from Crypto.Util.Padding import pad, unpad
 from PyQt6 import QtCore
 from PyQt6.QtCore import QSize, Qt, pyqtSignal, QObject
-from PyQt6.QtGui import QPixmap, QFont, QMouseEvent, QCursor, QKeyEvent, QFontDatabase
+from PyQt6.QtGui import QPixmap, QFont, QMouseEvent, QCursor, QKeyEvent
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt6.QtWidgets import QSpacerItem, QTextEdit, QGridLayout, QMessageBox
 from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
