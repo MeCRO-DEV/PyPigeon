@@ -141,7 +141,7 @@ class MainWindow(QMainWindow):
         self.offset = None
         super().mouseReleaseEvent(event)
 
-    def initUI(self):
+    def setupGui(self):
         self.setWindowTitle("Pigeon")
         self.setFixedSize(QSize(500, 500))
         if self.OperatingSystem == "Windows" or self.OperatingSystem == "Darwin":
@@ -185,10 +185,10 @@ class MainWindow(QMainWindow):
         spTitle = QSpacerItem(240, 45)
         TopLayout.addItem(spTitle)
 
-        btInfo = QPushButton("💡")
-        btInfo.setFixedHeight(25)
-        btInfo.setFixedWidth(25)
-        btInfo.setStyleSheet("""
+        self.btInfo = QPushButton("💡")
+        self.btInfo.setFixedHeight(25)
+        self.btInfo.setFixedWidth(25)
+        self.btInfo.setStyleSheet("""
                              QPushButton { 
                                 border-radius:12; 
                                 border:0px solid #0F0F4D; 
@@ -199,15 +199,15 @@ class MainWindow(QMainWindow):
                                 background-color: #0F0F4D; 
                              }
                              """)
-        btInfo.setFont(QFont('Courier New', 14, 300))
-        btInfo.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        TopLayout.addWidget(btInfo)
+        self.btInfo.setFont(QFont('Courier New', 14, 300))
+        self.btInfo.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        TopLayout.addWidget(self.btInfo)
 
-        btExit = QPushButton("Exit")
-        btExit.setFixedHeight(25)
-        btExit.setFixedWidth(70)
-        btExit.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        btExit.setStyleSheet("""
+        self.btExit = QPushButton("Exit")
+        self.btExit.setFixedHeight(25)
+        self.btExit.setFixedWidth(70)
+        self.btExit.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btExit.setStyleSheet("""
                             QPushButton {
                                 border-radius:12;
                                 border:1px solid #552284;
@@ -218,8 +218,8 @@ class MainWindow(QMainWindow):
                                 background-color: #FF4C70;
                             }
                              """)
-        btExit.setFont(QFont('Arial', 12, 700))
-        TopLayout.addWidget(btExit)
+        self.btExit.setFont(QFont('Arial', 12, 700))
+        TopLayout.addWidget(self.btExit)
 
         self.CentralLayout.insertWidget(0,lbTitleBar)
 
@@ -352,11 +352,11 @@ class MainWindow(QMainWindow):
             self.btDecrypt.setFont(QFont('Courier New', 8, 700))
         ButtonLayout.addWidget(self.btDecrypt, Qt.AlignmentFlag.AlignVCenter)
 
-        btCopy = QPushButton("Copy")
-        btCopy.setFixedHeight(20)
-        btCopy.setFixedWidth(50)
-        btCopy.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        btCopy.setStyleSheet("""
+        self.btCopy = QPushButton("Copy")
+        self.btCopy.setFixedHeight(20)
+        self.btCopy.setFixedWidth(50)
+        self.btCopy.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btCopy.setStyleSheet("""
                             QPushButton {
                                 border-radius:10;
                                 border:1px solid #552284;
@@ -368,16 +368,16 @@ class MainWindow(QMainWindow):
                             }
                              """)
         if self.OperatingSystem == "Darwin":
-            btCopy.setFont(QFont('Courier New', 12, 700))
+            self.btCopy.setFont(QFont('Courier New', 12, 700))
         else:
-            btCopy.setFont(QFont('Courier New', 8, 700))
-        ButtonLayout.addWidget(btCopy, Qt.AlignmentFlag.AlignVCenter)
+            self.btCopy.setFont(QFont('Courier New', 8, 700))
+        ButtonLayout.addWidget(self.btCopy, Qt.AlignmentFlag.AlignVCenter)
 
-        btPaste = QPushButton("Paste")
-        btPaste.setFixedHeight(20)
-        btPaste.setFixedWidth(60)
-        btPaste.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        btPaste.setStyleSheet("""
+        self.btPaste = QPushButton("Paste")
+        self.btPaste.setFixedHeight(20)
+        self.btPaste.setFixedWidth(60)
+        self.btPaste.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btPaste.setStyleSheet("""
                             QPushButton {
                                 border-radius:10;
                                 border:1px solid #552284;
@@ -389,16 +389,16 @@ class MainWindow(QMainWindow):
                             }
                              """)
         if self.OperatingSystem == "Darwin":
-            btPaste.setFont(QFont('Courier New', 12, 700))
+            self.btPaste.setFont(QFont('Courier New', 12, 700))
         else:
-            btPaste.setFont(QFont('Courier New', 8, 700))
-        ButtonLayout.addWidget(btPaste, Qt.AlignmentFlag.AlignVCenter)
+            self.btPaste.setFont(QFont('Courier New', 8, 700))
+        ButtonLayout.addWidget(self.btPaste, Qt.AlignmentFlag.AlignVCenter)
 
-        btClear = QPushButton("Clear")
-        btClear.setFixedHeight(20)
-        btClear.setFixedWidth(60)
-        btClear.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        btClear.setStyleSheet("""
+        self.btClear = QPushButton("Clear")
+        self.btClear.setFixedHeight(20)
+        self.btClear.setFixedWidth(60)
+        self.btClear.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btClear.setStyleSheet("""
                             QPushButton {
                                 border-radius:10;
                                 border:1px solid #552284;
@@ -410,10 +410,10 @@ class MainWindow(QMainWindow):
                             }
                              """)
         if self.OperatingSystem == "Darwin":
-            btClear.setFont(QFont('Courier New', 12, 700))
+            self.btClear.setFont(QFont('Courier New', 12, 700))
         else:
-            btClear.setFont(QFont('Courier New', 8, 700))
-        ButtonLayout.addWidget(btClear, Qt.AlignmentFlag.AlignVCenter)
+            self.btClear.setFont(QFont('Courier New', 8, 700))
+        ButtonLayout.addWidget(self.btClear, Qt.AlignmentFlag.AlignVCenter)
 
         self.CentralLayout.insertWidget(3,lbButtonBar)
         self.CentralLayout.setAlignment(lbButtonBar, Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
@@ -449,11 +449,11 @@ class MainWindow(QMainWindow):
         self.tbPhrase.setEchoMode(QLineEdit.EchoMode.Password)
         PhraseLayout.addWidget(self.tbPhrase)
 
-        btEye = QPushButton("👁️")
-        btEye.setFixedHeight(25)
-        btEye.setFixedWidth(25)
-        btEye.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        btEye.setStyleSheet("""
+        self.btEye = QPushButton("👁️")
+        self.btEye.setFixedHeight(25)
+        self.btEye.setFixedWidth(25)
+        self.btEye.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btEye.setStyleSheet("""
                             QPushButton {
                                 border-radius:12;
                                 border:1px solid #181735;
@@ -464,8 +464,8 @@ class MainWindow(QMainWindow):
                                 background-color: #181735;
                             }
                              """)
-        btEye.setFont(QFont('Courier New', 16, 300))
-        PhraseLayout.addWidget(btEye)
+        self.btEye.setFont(QFont('Courier New', 16, 300))
+        PhraseLayout.addWidget(self.btEye)
 
         self.CentralLayout.insertWidget(4,lbPhraseBar)
         self.CentralLayout.setAlignment(lbPhraseBar, Qt.AlignmentFlag.AlignCenter)
@@ -507,8 +507,8 @@ class MainWindow(QMainWindow):
         spStatus = QSpacerItem(500, 10)
         StatusLayout.addItem(spStatus)
 
-        lbCopyright = QLabel("© MeCRO 2024") 
-        
+        lbCopyright = QLabel("© MeCRO 2024")
+
         if sys.platform == "win32":
             lbCopyright.setStyleSheet("QLabel { color: white; font-size: 12px; font-family: Courier New; }")
         else:
@@ -519,19 +519,22 @@ class MainWindow(QMainWindow):
         self.CentralLayout.insertWidget(6,lbStatusBar)
         self.CentralLayout.setAlignment(lbStatusBar, Qt.AlignmentFlag.AlignCenter)
 
+        self.tbMessageBox.setText("PyPigeon, securing your messages.")
+
+    def initUI(self):
+        self.setupGui()
+
         # Connecting signals and slots
-        btExit.clicked.connect(self.btExitClicked)
-        btClear.clicked.connect(self.btClearClicked)
-        btCopy.clicked.connect(self.btCopyClicked)
-        btPaste.clicked.connect(self.btPasteClicked)
+        self.btInfo.clicked.connect(self.btInfoClicked)
+        self.btExit.clicked.connect(self.btExitClicked)
         self.btEncrypt.clicked.connect(self.btEncryptClicked)
         self.btDecrypt.clicked.connect(self.btDecryptClicked)
-        btEye.pressed.connect(self.show_password)
-        btEye.released.connect(self.hide_password)
-        btInfo.clicked.connect(self.btInfoClicked)
+        self.btCopy.clicked.connect(self.btCopyClicked)
+        self.btPaste.clicked.connect(self.btPasteClicked)
+        self.btClear.clicked.connect(self.btClearClicked)
+        self.btEye.pressed.connect(self.show_password)
+        self.btEye.released.connect(self.hide_password)
         self.tbMessageBox.textChanged.connect(self.textChanged)
-
-        self.tbMessageBox.setText("PyPigeon, securing your messages.")
 
     def btExitClicked(self):
         exit()
