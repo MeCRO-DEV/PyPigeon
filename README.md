@@ -6,7 +6,7 @@ A tool to encrypt/decrypt your messages passing over any public chat application
 It encrypts your messages with AES256 and encodes it with Base64 so you can send it over any chat program. When the recipient receives it, PyPigeon can decode and decrypt it.
 
 Features:
-- Multiple layers of encryption with different passphrases
+- Multiple layers of encryption with different passphrases (Limited to 10 layers)
 - Easy to use
 
 Usage:
