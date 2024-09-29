@@ -3,7 +3,7 @@ from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.Util.Padding import pad, unpad
 from PyQt6 import QtCore
-from PyQt6.QtCore import QSize, Qt, pyqtSignal, QObject
+from PyQt6.QtCore import QSize, Qt, pyqtSignal, QObject, QThread
 from PyQt6.QtGui import QPixmap, QFont, QMouseEvent, QCursor, QKeyEvent
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt6.QtWidgets import QSpacerItem, QTextEdit, QGridLayout, QMessageBox
@@ -575,7 +575,7 @@ class MainWindow(QMainWindow):
             self.current_layer += 1
         pText = self.tbMessageBox.toPlainText()
         mima  = self.tbPhrase.text()
-        self.encrypt_thread = QtCore.QThread()
+        self.encrypt_thread = QThread()
         self.encrypt_worker = EncryptWorker(pText, mima)
         self.encrypt_worker.moveToThread(self.encrypt_thread)
         self.encrypt_worker.finished.connect(self.setEncryptedText)
@@ -625,7 +625,7 @@ class MainWindow(QMainWindow):
             return
         b64 = self.tbMessageBox.toPlainText()
         mima  = self.tbPhrase.text()
-        self.decrypt_thread = QtCore.QThread()
+        self.decrypt_thread = QThread()
         self.decrypt_worker = DecryptWorker(b64, mima)
         self.decrypt_worker.moveToThread(self.decrypt_thread)
         self.decrypt_worker.finished.connect(self.setDecryptedText)
