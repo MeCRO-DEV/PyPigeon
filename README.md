@@ -18,4 +18,6 @@ Dependencies:
 
 Screenshots:
 
-![image](https://github.com/user-attachments/assets/0a159bdb-b26e-463a-ad13-2b0535900a9b)
+![image](https://github.com/user-attachments/assets/1a268911-649b-423d-bad5-f399d20931c2)
+
+![image](https://github.com/user-attachments/assets/737daa79-86fc-47dc-8f03-a2280460d7d0)
