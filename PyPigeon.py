@@ -182,7 +182,7 @@ class MainWindow(QMainWindow):
         TopLayout.addWidget(labelLogo)
         labelLogo.setContentsMargins(5,0,0,0)
 
-        spTitle = QSpacerItem(200, 45)
+        spTitle = QSpacerItem(240, 45)
         TopLayout.addItem(spTitle)
 
         btInfo = QPushButton("💡")
@@ -237,7 +237,7 @@ class MainWindow(QMainWindow):
             fsize = 10
         lbInfoBar = QLabel()
         lbInfoBar.setContentsMargins(0, 0, 0, 0)
-        lbInfoBar.setFixedSize(480, 45)
+        lbInfoBar.setFixedSize(480, 40)
         lbInfoBar.setStyleSheet("QLabel { background-color:#000000; }")
 
         InfoLayout = QGridLayout(lbInfoBar)
@@ -295,7 +295,7 @@ class MainWindow(QMainWindow):
 
         lbButtonBar = QLabel()
         lbButtonBar.setContentsMargins(0, 0, 0, 0)
-        lbButtonBar.setFixedSize(480, 35)
+        lbButtonBar.setFixedSize(480, 20)
         ButtonLayout = QHBoxLayout(lbButtonBar)
         ButtonLayout.setContentsMargins(10, 0, 10, 0)
         ButtonLayout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
@@ -303,7 +303,7 @@ class MainWindow(QMainWindow):
 
         lbPassPhrase = QLabel("Passphrase:")
         lbPassPhrase.setStyleSheet("QLabel { color: cyan; border: 2px solid cyan; border-radius:10;  background-color: black; }")
-        lbPassPhrase.setFixedHeight(25)
+        lbPassPhrase.setFixedHeight(20)
         if self.OperatingSystem == "Darwin":
             lbPassPhrase.setFixedWidth(90)
         lbPassPhrase.setFont(QFont('Courier New', 12, 400))
@@ -311,7 +311,7 @@ class MainWindow(QMainWindow):
         ButtonLayout.addWidget(lbPassPhrase, Qt.AlignmentFlag.AlignBottom)
 
         self.btEncrypt = QPushButton("Encrypt")
-        self.btEncrypt.setFixedHeight(25)
+        self.btEncrypt.setFixedHeight(20)
         self.btEncrypt.setFixedWidth(70)
         self.btEncrypt.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.btEncrypt.setStyleSheet("""
@@ -332,7 +332,7 @@ class MainWindow(QMainWindow):
         ButtonLayout.addWidget(self.btEncrypt, Qt.AlignmentFlag.AlignVCenter)
 
         self.btDecrypt = QPushButton("Decrypt")
-        self.btDecrypt.setFixedHeight(25)
+        self.btDecrypt.setFixedHeight(20)
         self.btDecrypt.setFixedWidth(70)
         self.btDecrypt.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.btDecrypt.setStyleSheet("""
@@ -353,7 +353,7 @@ class MainWindow(QMainWindow):
         ButtonLayout.addWidget(self.btDecrypt, Qt.AlignmentFlag.AlignVCenter)
 
         btCopy = QPushButton("Copy")
-        btCopy.setFixedHeight(25)
+        btCopy.setFixedHeight(20)
         btCopy.setFixedWidth(50)
         btCopy.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         btCopy.setStyleSheet("""
@@ -374,7 +374,7 @@ class MainWindow(QMainWindow):
         ButtonLayout.addWidget(btCopy, Qt.AlignmentFlag.AlignVCenter)
 
         btPaste = QPushButton("Paste")
-        btPaste.setFixedHeight(25)
+        btPaste.setFixedHeight(20)
         btPaste.setFixedWidth(60)
         btPaste.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         btPaste.setStyleSheet("""
@@ -395,7 +395,7 @@ class MainWindow(QMainWindow):
         ButtonLayout.addWidget(btPaste, Qt.AlignmentFlag.AlignVCenter)
 
         btClear = QPushButton("Clear")
-        btClear.setFixedHeight(25)
+        btClear.setFixedHeight(20)
         btClear.setFixedWidth(60)
         btClear.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         btClear.setStyleSheet("""
@@ -423,7 +423,7 @@ class MainWindow(QMainWindow):
 
         lbPhraseBar = QLabel()
         lbPhraseBar.setContentsMargins(0, 0, 0, 0)
-        lbPhraseBar.setFixedSize(480, 30)
+        lbPhraseBar.setFixedSize(480, 25)
         PhraseLayout = QHBoxLayout(lbPhraseBar)
         PhraseLayout.setContentsMargins(10, 0, 10, 0)
         lbPhraseBar.setLayout(PhraseLayout)
@@ -473,7 +473,7 @@ class MainWindow(QMainWindow):
 
         # Message Box
         self.tbMessageBox = LimitedTextEdit(max_chars=1048576)
-        self.tbMessageBox.setFixedHeight(288)
+        self.tbMessageBox.setFixedHeight(310)
         self.tbMessageBox.setFixedWidth(460)
         self.tbMessageBox.setStyleSheet("QTextEdit { background-color: black; color: white; border: 2px solid yellow; border-radius:10; }")
         self.tbMessageBox.setFont(QFont('Courier New', 12, 300))
