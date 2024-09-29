@@ -141,7 +141,7 @@ class MainWindow(QMainWindow):
         super().mouseReleaseEvent(event)
 
     def initUI(self):
-        self.setWindowTitle("PyPigeon")
+        self.setWindowTitle("Pigeon")
         self.setFixedSize(QSize(500, 500))
         if self.OperatingSystem == "Windows" or self.OperatingSystem == "Darwin":
             self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint, True)
@@ -167,7 +167,7 @@ class MainWindow(QMainWindow):
         TopLayout = QHBoxLayout(lbTitleBar)
         lbTitleBar.setLayout(TopLayout)
 
-        nameLogo = QLabel("PyPigeon")
+        nameLogo = QLabel("Pigeon")
         nameLogo.setFont(QFont('Dosis', 16, 700))
         nameLogo.setStyleSheet("QLabel { color: yellow; }")
         nameLogo.setContentsMargins(10,0,0,0)
