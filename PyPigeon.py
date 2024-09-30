@@ -53,30 +53,6 @@ class EncryptWorker(QObject):
         encrypted_text = base64.b64encode(encrypted_data).decode('utf-8')
         self.finished.emit(encrypted_text)
 
-class DecryptWorker(QObject):
-    finished = pyqtSignal(str)
-
-    def __init__(self, b64Str, mima):
-        super().__init__()
-        self.b64Str = b64Str
-        self.mima = mima
-
-    def run(self):
-        encrypted_data = base64.b64decode(self.b64Str)
-        key = SHA256.new(self.mima.encode('utf-8')).digest()
-        cipher = AES.new(key, AES.MODE_CBC, iv=bytes(16))
-        try:
-            decrypted_data = unpad(cipher.decrypt(encrypted_data), AES.block_size)
-            tBytes = decrypted_data[:-32]
-            tHash = decrypted_data[-32:]
-            if SHA256.new(tBytes).digest() == tHash:
-                decrypted_text = tBytes.decode('utf-8')
-            else:
-                decrypted_text = "Invalid Pass Phrase"
-        except:
-            decrypted_text = "Invalid Pass Phrase"
-        self.finished.emit(decrypted_text)
-
 class LimitedTextEdit(QTextEdit):
     def __init__(self, max_chars, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -656,6 +632,11 @@ class MainWindow(QMainWindow):
 
     def textChanged(self):
         self.lbLen.setText(str(len(self.tbMessageBox.toPlainText())))
+
+if sys.platform == "win32":
+    import ctypes
+    myappid = 'MeCRO.Pigeon.PyPigeon.1.0.0'
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 PigeonData = Base64Data()
 PigeonB64  = PigeonData.PigeonB64
