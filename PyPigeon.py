@@ -1,4 +1,5 @@
 import sys, platform, base64
+from sys import exit
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.Util.Padding import pad, unpad
