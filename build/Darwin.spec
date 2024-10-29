@@ -39,6 +39,6 @@ exe = EXE(
 app = BUNDLE(
     exe,
     name='PyPigeon.app',
-    icon=None,
+    icon='Pigeon.ico',
     bundle_identifier=None,
 )
