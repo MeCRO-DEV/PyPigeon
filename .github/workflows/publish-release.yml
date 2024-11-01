@@ -1,0 +1,82 @@
+name: Publish Releases
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        sudo apt install libxcb* -y
+        sudo apt install libxkb* -y
+
+    - name: Build package
+      id: build
+      run: |
+        cd specs
+        pyinstaller ubuntu.spec
+        cd ./dist
+        now=$(date +"%Y%m%d%H%M%S")
+        echo "name=PyPigeon-ubuntu-${{ vars.ver }}-$now.zip" >> $GITHUB_OUTPUT
+        name=PyPigeon-ubuntu-${{ vars.ver }}-$now.zip
+        zip -r $name PyPigeon
+        ls -l
+
+    - name: '📦 Upload Ubuntu Package'
+      run: |
+        echo "${{ steps.build.outputs.name }}"
+        gh release upload ubuntu ./specs/dist/${{ steps.build.outputs.name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+      shell: bash
+
+  deploy-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Build package
+      id: build
+      run: |
+        cd specs
+        pyinstaller Windows.spec
+        cd ./dist
+        now=$(date +"%Y%m%d%H%M%S")
+        echo "name=PyPigeon-windows-${{ vars.ver }}-$now.zip" >> $GITHUB_OUTPUT
+        name=PyPigeon-windows-${{ vars.ver }}-$now.zip
+        7z a -tzip $name PyPigeon.exe
+        ls -l
+      shell: bash
+
+    - name: '📦 Upload Windows Package'
+      run: |
+        echo "${{ steps.build.outputs.name }}"
+        gh release upload Windows ./specs/dist/${{ steps.build.outputs.name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+      shell: bash

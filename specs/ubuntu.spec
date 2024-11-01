@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['../pypigeon/PyPigeon.py'],
+    ['../PyPigeon.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -35,10 +35,4 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-)
-app = BUNDLE(
-    exe,
-    name='PyPigeon.app',
-    icon=None,
-    bundle_identifier=None,
 )

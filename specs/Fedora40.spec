@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['..\\PyPigeon\\PyPigeon.py'],
+    ['../PyPigeon.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -35,5 +35,4 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='Pigeon.ico',
 )
