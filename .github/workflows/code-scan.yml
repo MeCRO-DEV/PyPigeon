@@ -22,15 +22,24 @@ jobs:
       security-events: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Set up CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: 'python'
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: 'security'
+      - name: Checkout repository
+        uses: actions/checkout@v3
+    
+      - name: Set up CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: 'typescript'
+    
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: 'security'
+    
+      - name: find SARIF file
+        run: find /home/runner/work/ -name "*.sarif" -print
+    
+      - name: Upload SARIF file
+        uses: actions/upload-artifact@v4
+        with:
+          name: sarif-results
+          path: /home/runner/work/PyPigeon/results/python.sarif
