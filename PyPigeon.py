@@ -664,8 +664,6 @@ if sys.platform == "win32":
     myappid = 'MeCRO.Pigeon.PyPigeon.1.0.0'
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
-password = "1234567890"
-print("Password: ", password)
 PigeonData = Base64Data()
 PigeonB64  = PigeonData.pigeon_b64
 image_data = base64.b64decode(PigeonB64)
