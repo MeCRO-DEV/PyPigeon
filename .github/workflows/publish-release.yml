@@ -53,6 +53,11 @@ jobs:
   deploy-windows:
     runs-on: windows-latest
 
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
     steps:
     - uses: actions/checkout@v4
 
