@@ -1,15 +1,15 @@
 name: CodeQL
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  schedule:
-    - cron: '0 0 * * 1' # Weekly scan at midnight every Monday
-  workflow_dispatch: # Adds manual trigger
+  #push:
+  #  branches:
+  #    - main
+  #pull_request:
+  #  branches:
+  #    - main
+  #schedule:
+  #  - cron: '0 0 * * 1' # Weekly scan at midnight every Monday
+  workflow_dispatch:
 
 jobs:
   analyze:
