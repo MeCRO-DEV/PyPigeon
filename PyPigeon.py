@@ -9,6 +9,7 @@ from PyQt6.QtGui import QPixmap, QFont, QMouseEvent, QCursor, QKeyEvent, QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt6.QtWidgets import QSpacerItem, QTextEdit, QGridLayout, QMessageBox
 from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
+import os
 
 class CustomMessageBox(QMessageBox):
     OS = platform.system()
@@ -664,7 +665,7 @@ if sys.platform == "win32":
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 password = "1234567890"
-print
+print("Password: ", password)
 PigeonData = Base64Data()
 PigeonB64  = PigeonData.pigeon_b64
 image_data = base64.b64decode(PigeonB64)
