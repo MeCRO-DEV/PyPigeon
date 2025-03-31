@@ -674,5 +674,3 @@ app.setWindowIcon(QIcon(pixmap))
 window = MainWindow()
 window.show()
 app.exec()
-
-password = "12345678"
